@@ -31,7 +31,7 @@ const DeskWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 5px;
 `
 
 //책상인풋 wrapper
@@ -41,27 +41,24 @@ const DeskWrapper = styled.div`
 
 //책상 스타일
 const Desk = styled.div`
-    width: 100px;
-    height: 50px;
+    width: 140px;
+    height: 70px;
     background: skyblue;
     border-radius: 5px;
-    &:hover {
-
-        cursor: pointer
-    }
-    margin: 5px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
 `
 
 //disabled Desk 스타일
 const Desk2 = styled.div`
-    width: 100px;
-    height: 50px;
+    width: 140px;
+    height: 70px;
     background: white;
     border-radius: 5px;
-    &:hover {
-        cursor: pointer
-    }
-    margin: 5px;
+    margin: 10px;
 `
 //생성,제외된 숫자 컨테이너
 const NumberContainer = styled.div`
@@ -127,6 +124,8 @@ function Test2() {
         setDoubleArr([...arr])
         setCol(parseInt(colRef.current.value))
         setRow(parseInt(rowRef.current.value))
+        
+        
         
     }
     }
@@ -325,25 +324,17 @@ function Test2() {
     })
 
     //책상 크기
-    const [deskWidth,setDeskWidth] = useState(0);
-    const [deskHeight,setDeskHeight]= useState(0);
+
+
     const calLength = () => {
-        if(col>=row){
-            let tempLength;
-            tempLength = (window.innerHeight/col)*7/10;
-            tempLength = tempLength * 7 / 5;
-            return tempLength
-        } else {
-            let tempLength;
-            tempLength = (window.innerWidth/row)*7/10;
-            tempLength = tempLength;
-            return tempLength
-        }
+        let tempWidth;
+        tempWidth = window.innerWidth / col * 0.7
+        return tempWidth;
     }
     return(
      
         <Container style={{height: window.innerHeight}}>
-       
+            
             {transition2((style,item)=>{
                 return(
                     !item ?
@@ -395,11 +386,11 @@ function Test2() {
                                     if(a===1){
                                         return(
                                             <td>
-                                                <Desk onClick={()=>{deskClicked(i,j)}} style={{width: (window.innerWidth*21)/(60*col + 1) + 'px', height: (window.innerHeight*21)/(30*row + 1) + 'px' }}>
+                                                <Desk>
                                                     {isStarted?
                                                     numArr[i*row + j - numToggle]
                                                 : null}
-                                                    
+                                                   
                                                 </Desk>
                                             </td>
                                             
@@ -408,7 +399,7 @@ function Test2() {
                                         {numToggle++;}
                                         return (
                                             <td>
-                                                <Desk2 onClick={()=>{deskClicked(i,j)}} style={{width: (window.innerWidth*21)/(30*col + 1) + 'px', height: (window.innerHeight*21)/(30*row + 1) + 'px' }}>
+                                                <Desk2>
                                                     
                                                 </Desk2>
                                             </td>
@@ -416,6 +407,7 @@ function Test2() {
                                     }
                                     
                                 })}
+
                             </tr>
                         )
                     })}
@@ -433,7 +425,7 @@ function Test2() {
 
                         
 
-
+                
             
             </div>
             
