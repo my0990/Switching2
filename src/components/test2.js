@@ -428,7 +428,7 @@ function Test2() {
                         
 
                 
-            
+            <p style={{position: 'absolute', right: 0, bottom: 0}}>email: my0990@naver.com</p>
             </div>
             
 
