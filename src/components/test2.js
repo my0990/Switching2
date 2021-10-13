@@ -40,7 +40,7 @@ const DeskWrapper = styled.div`
 
 
 //책상 스타일
-const Desk = styled.div`
+const Desk = styled(animated.div)`
     width: 140px;
     height: 70px;
     background: skyblue;
@@ -113,6 +113,11 @@ function Test2() {
     // 배열만들기
     const createArr = () => {
         if(!isStarted){
+            if(colRef.current.value>10 || rowRef.current.value > 10){
+                alert('10이하 숫자를 입력해주세요');
+                colRef.current.value = '';
+                rowRef.current.value = '';
+            } else {
         let arr = [];
         for(let i=0;i<colRef.current.value;++i){
             let Row = [];
@@ -124,27 +129,11 @@ function Test2() {
         setDoubleArr([...arr])
         setCol(parseInt(colRef.current.value))
         setRow(parseInt(rowRef.current.value))
-        
-        
-        
-    }
+    }}
     }
 
-    //Desk를 클릭했을때 2차원 배열 value를 0으로 만들기
- 
-    const deskClicked = (i,j) => {
-        if(!isStarted){
-            let copy = [...doubleArr];
-            if(copy[i][j]===1){
-                copy[i].splice(j,1,0)
-            } else {
-                copy[i].splice(j,1,1)
-            }
-            
-            setDoubleArr([...copy])
-        }
-        console.log(doubleArr)
-    }
+
+
 
     //start toggle 번호 부여후 토글 바뀜
     const [isStarted,setIsStarted] = useState(false)
@@ -199,19 +188,20 @@ function Test2() {
     //reset버튼
     const resetConfirm = () => {
         if(window.confirm('정말 초기화하실거에요?')){
-            reset()
+            reset();
+            window.location.reload();
         }else{
             console.log('변화없음')
         }
     }
     const reset = () => {
         setIsStarted(false);
-        let arr = []
-        setDoubleArr([...arr])
-        setExNumArr([...arr])
-        setNumArr([...arr])
-        setModalNumArr([...arr])
-  
+        let arr = [];
+        setDoubleArr([...arr]);
+        setExNumArr([...arr]);
+        setNumArr([...arr]);
+        setModalNumArr([...arr]);
+        
     }
 
     //start버튼
@@ -266,13 +256,13 @@ function Test2() {
 
                 <input id='end' placeholder='끝번호' ref={lastRef}></input>
 
-                <input id='ex'placeholder='제외번호' ref={exRef}></input>
+                <input id='ex'placeholder='제외번호 콤마로 구분' ref={exRef}></input>
             </div>
         </div>
         <Button variant="danger" onClick={()=>createNumArr()}>번호생성</Button>
         <NumberContainer>
             <div style={{height: '50%'}}>
-                <h4>생성된번호</h4>
+                <h4>생성된 번호</h4>
                 <div>{modalNumArr.map((a,i)=>{
                     
                     if(i!=modalNumArr.length-1){
@@ -288,7 +278,7 @@ function Test2() {
                 })}</div>
             </div>
             <div style={{height: '50%'}}>
-            <h4>제외된번호</h4>
+            <h4>제외된 번호</h4>
                 <div>{exNumArr.map((a,i)=>{
                     if(a===0){
                         return(
@@ -323,14 +313,14 @@ function Test2() {
 
     })
 
-    //책상 크기
+    //숫자 애니메이션
+    const transition3 = useTransition(isStarted,{
+        from: {opacity: 0},
+        enter: {opacity: 1}
+    })
 
 
-    const calLength = () => {
-        let tempWidth;
-        tempWidth = window.innerWidth / col * 0.7
-        return tempWidth;
-    }
+   
     return(
      
         <Container style={{height: window.innerHeight}}>
@@ -387,11 +377,20 @@ function Test2() {
                                         return(
                                             <td>
                                                 <Desk>
-                                                    {isStarted?
+                                                    {transition3((style,item)=>{
+                                                        return(
+                                                        item?
+                                                        <animated.div style={style}>
+                                                            {numArr[i*row + j - numToggle]}
+                                                            </animated.div>
+                                                        : null)
+                                                    })}
+                                                    </Desk>
+                                                    {/* {isStarted?
                                                     numArr[i*row + j - numToggle]
-                                                : null}
+                                                : null} */}
                                                    
-                                                </Desk>
+                                                
                                             </td>
                                             
                                         )
