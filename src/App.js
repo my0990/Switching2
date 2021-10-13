@@ -9,15 +9,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
-      <Route path='/' exact>
-        <Test/>
-    </Route>
-      <Route path='/test2'>
+
         <Test2 />
-    </Route>
-    <Route path='/test3'>
-        <Test3/>
-    </Route>
+
+ 
     </div>
     
 

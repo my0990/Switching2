@@ -17,7 +17,7 @@ const Container = styled.div`
 `
 
 const pages = [
-  ({style}) => <DeskInput />,
+  ({style}) => <div className='item2'>2</div>,
   ({style}) => <div className='item2'>2</div>,
   ({style}) => <div className='item3'>3</div>,
 ]
