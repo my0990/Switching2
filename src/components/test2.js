@@ -127,7 +127,7 @@ function Test2() {
         setDoubleArr([...arr])
         setCol(parseInt(colRef.current.value))
         setRow(parseInt(rowRef.current.value))
-   
+        
     }
     }
 
@@ -323,6 +323,23 @@ function Test2() {
         leave: {opacity: 0}
 
     })
+
+    //책상 크기
+    const [deskWidth,setDeskWidth] = useState(0);
+    const [deskHeight,setDeskHeight]= useState(0);
+    const calLength = () => {
+        if(col>=row){
+            let tempLength;
+            tempLength = (window.innerHeight/col)*7/10;
+            tempLength = tempLength * 7 / 5;
+            return tempLength
+        } else {
+            let tempLength;
+            tempLength = (window.innerWidth/row)*7/10;
+            tempLength = tempLength;
+            return tempLength
+        }
+    }
     return(
      
         <Container style={{height: window.innerHeight}}>
