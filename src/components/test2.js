@@ -109,6 +109,7 @@ function Test2() {
     //배열 기본 세팅
     const [doubleArr,setDoubleArr] = useState([]); 
 
+    const [infoToggle,setInfoToggle] = useState(false);
 
     // 배열만들기
     const createArr = () => {
@@ -129,6 +130,7 @@ function Test2() {
         setDoubleArr([...arr])
         setCol(parseInt(colRef.current.value))
         setRow(parseInt(rowRef.current.value))
+        setInfoToggle(true)
     }}
     }
 
@@ -241,6 +243,7 @@ function Test2() {
             <Button variant="danger" onClick={()=>{createArr()}}>책상생성</Button>
             <div className='smallDesk'>
             <DeskInput arr={doubleArr} propsFunction={nextClicked}/>
+            {infoToggle?<div style={{position: 'relative', bottom: '50px'}}>클릭하면 책상을 지울 수 있습니다.</div>:''}
             
 
                 
