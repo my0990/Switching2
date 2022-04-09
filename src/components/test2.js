@@ -164,20 +164,25 @@ function Test2() {
     const createNumArr = () => {
         if(!isStarted){
         let exArr = exRef.current.value.split(',').map(Number); //제외번호 배열이 number타입으로 저장됨
+        
         console.log(...exArr)
         setExNumArr([...exArr])
         
         let tempArr = []; 
+        console.log('예외번호 배열: ', exArr)
         // 시작번호부터 끝번호까지 제외번호 제외하고 tempArr에 저장
-        for(let i=startRef.current.value;i<parseInt(lastRef.current.value)+1;++i){
+        console.log('test start')
+        for(let i=parseInt(startRef.current.value);i<parseInt(lastRef.current.value)+1;++i){
+            
+            
             if(!exArr.includes(i)){
-               
+               console.log(i,'는 예외 번호에 포함되지 않았습니다.')
             tempArr.push(parseInt(i));
             }
             
         };
-       
-        setModalNumArr([...tempArr])
+       console.log(tempArr)
+        setModalNumArr([...modalNumArr, ...tempArr])
         //번호 랜덤으로 배치
         tempArr.sort(()=>Math.random()-0.5);
 
@@ -262,7 +267,8 @@ function Test2() {
                 <input id='ex'placeholder='제외번호 콤마로 구분' ref={exRef}></input>
             </div>
         </div>
-        <Button variant="danger" onClick={()=>createNumArr()}>번호생성</Button>
+        <Button variant="danger" onClick={()=>createNumArr()}>번호추가</Button>
+        
         <NumberContainer>
             <div style={{height: '50%'}}>
                 <h4>생성된 번호</h4>
